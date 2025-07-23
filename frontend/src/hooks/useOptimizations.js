@@ -149,3 +149,20 @@ export const useStableMemo = (factory, deps) => {
 
   return ref.current;
 };
+
+/**
+ * Hook principal de optimizaciones que combina todos los hooks de optimización
+ */
+export const useOptimizations = () => {
+  const cleanup = useCleanup();
+  const debounce = useDebounce();
+  const throttle = useThrottle();
+  const stableMemo = useStableMemo;
+
+  return {
+    cleanup,
+    debounce,
+    throttle,
+    stableMemo
+  };
+};

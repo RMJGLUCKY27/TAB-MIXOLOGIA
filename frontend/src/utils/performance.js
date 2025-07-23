@@ -276,7 +276,7 @@ export const bundleAnalyzer = {
 };
 
 // Export all utilities
-export default {
+const performance = {
   debounce,
   throttle,
   createLazyObserver,
@@ -286,3 +286,6 @@ export default {
   fpsMonitor,
   bundleAnalyzer
 };
+
+export { performance };
+export default performance;

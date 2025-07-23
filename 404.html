@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tabú Mixología - Redirecting...</title>
+  <title>Tabú Mixología</title>
   <script>
-    // Redirect para manejar rutas de SPA en GitHub Pages
-    const path = window.location.pathname.slice(1);
-    if (path && path !== 'index.html') {
-      window.history.replaceState(null, null, '/?path=' + encodeURIComponent(path));
-    }
+    // GitHub Pages SPA hack
+    var pathSegmentsToKeep = 1;
+    var l = window.location;
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + 
+      '/?/' + 
+      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+      l.hash
+    );
   </script>
 </head>
 <body>
-  <div id="root"></div>
 </body>
 </html>

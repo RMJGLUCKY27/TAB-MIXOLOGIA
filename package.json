@@ -1,0 +1,36 @@
+{
+  "name": "tabu-mixologia",
+  "version": "1.0.0",
+  "description": "Aplicación completa de mixología Tabú - Frontend y Backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run start:dev",
+    "start:dev": "concurrently \"npm run backend:dev\" \"npm run frontend:dev\"",
+    "start:prod": "concurrently \"npm run backend:start\" \"npm run frontend:build\"",
+    "backend:dev": "cd backend && npm run dev",
+    "backend:start": "cd backend && npm start",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:deploy": "cd frontend && npm run deploy",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "deploy": "cd frontend && npm run deploy"
+  },
+  "keywords": [
+    "mixología",
+    "cócteles",
+    "frontend",
+    "backend",
+    "fullstack",
+    "react",
+    "nodejs"
+  ],
+  "author": "Tu nombre",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

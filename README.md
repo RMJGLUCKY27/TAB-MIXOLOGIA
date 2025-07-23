@@ -6,49 +6,51 @@ Aplicación web completa para la gestión y descubrimiento de cócteles y bebida
 
 **Experiencia Premium**: SPA React sofisticada con diseño monocromático (blancos, negros, grises) para la mejor experiencia de coctelería.
 
-## 📋 Estructura del Proyecto
+## � Inicio Rápido
 
-```
-bers/
-├── frontend/          # Aplicación React/Vite (Core + Tabú Mixología)
-│   ├── src/
-│   │   ├── components/   # Componentes reutilizables
-│   │   ├── pages/       # Páginas de la aplicación
-│   │   ├── services/    # Servicios y API calls
-│   │   ├── styles/      # Estilos CSS/SCSS + Tailwind
-│   │   ├── hooks/       # Custom hooks (useFormValidation)
-│   │   ├── utils/       # Scroll, animaciones, datos
-│   │   └── assets/      # SVG, ilustraciones, imágenes
-│   └── public/          # Archivos estáticos
-├── backend/           # API REST Node.js/Express
-│   └── src/
-│       ├── controllers/ # Controladores de rutas
-│       ├── models/     # Modelos de datos
-│       ├── routes/     # Definición de rutas
-│       ├── middleware/ # Middleware personalizado
-│       ├── config/     # Configuración de la app
-│       └── utils/      # Utilidades y helpers
-└── README.md
+### ⚡ Comando Principal (Recomendado)
+```bash
+# Instalar todas las dependencias
+npm run install:all
+
+# Iniciar aplicación completa (Frontend + Backend)
+npm start
 ```
 
-## 🚀 Inicio Rápido
+### 📂 Comandos Individuales
 
-### Backend
+**Aplicación Completa:**
+```bash
+npm start              # Inicia frontend y backend simultáneamente
+npm run start:dev      # Modo desarrollo (frontend + backend)
+npm run start:prod     # Modo producción
+npm run install:all    # Instala deps en raíz, backend y frontend
+```
+
+**Backend (puerto 5000):**
 ```bash
 cd backend
 npm install
-npm run dev
+npm run dev            # Desarrollo con nodemon
+npm start              # Producción
 ```
 
-### Frontend
+**Frontend (puerto 3000):**
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run dev            # Desarrollo con Vite
+npm start              # Ejecuta npm run dev por defecto
+npm run build          # Build para producción
+npm run deploy         # Despliega a GitHub Pages
 ```
 
-### Tabú Mixología SPA
-Accede a la experiencia premium en: `http://localhost:3000/tabu`
+### 🌐 URLs de Acceso
+
+- **Frontend**: `http://localhost:3000`
+- **SPA Tabú Mixología**: `http://localhost:3000/#/tabu`
+- **Backend API**: `http://localhost:5000/api`
+- **GitHub Pages**: `https://rmjglucky27.github.io/TAB-MIXOLOGIA/`
 
 ## 📝 Características Principales
 

@@ -1,10 +1,10 @@
-# 🍸 Bers - Aplicación Web de Mixología
+# 🍸 Tabú Mixología - Aplicación Web Premium
 
-Aplicación web completa para la gestión y descubrimiento de cócteles y bebidas mixológicas.
+Aplicación web completa para la gestión y descubrimiento de cócteles y bebidas mixológicas, con una SPA elegante para experiencias premium de coctelería.
 
 ## 🎭 Tabú Mixología - SPA Elegante
 
-**Nueva implementación**: SPA React sofisticada con diseño monocromático (blancos, negros, grises) para experiencia de coctelería premium.
+**Experiencia Premium**: SPA React sofisticada con diseño monocromático (blancos, negros, grises) para la mejor experiencia de coctelería.
 
 ## 📋 Estructura del Proyecto
 

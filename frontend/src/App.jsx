@@ -5,6 +5,7 @@ import { AuthProvider } from './contexts/AuthContext'
 // Components
 import Layout from './components/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
+import ErrorBoundary from './components/ErrorBoundary'
 
 // Pages
 import Home from './pages/Home'
@@ -27,7 +28,8 @@ import './styles/tabu/components.css'
 
 function App() {
   return (
-    <AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
       <div className="min-h-screen bg-gray-50">
         <Routes>
           {/* Tabú Mixología SPA - Standalone route */}
@@ -65,6 +67,7 @@ function App() {
         </Routes>
       </div>
     </AuthProvider>
+    </ErrorBoundary>
   )
 }
 

@@ -1,13 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 /**
- * Custom hook for Intersection Observer API
- * Optimizes performance by triggering animations only when elements are visible
+ * Optimized Custom hook for Intersection Observer API
+ * Prevents memory leaks and improves performance
  */
 export const useIntersectionObserver = (options = {}) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [hasIntersected, setHasIntersected] = useState(false);
   const elementRef = useRef(null);
+  const observerRef = useRef(null);
 
   // Default options
   const defaultOptions = {
@@ -16,6 +17,25 @@ export const useIntersectionObserver = (options = {}) => {
     triggerOnce: true,
     ...options
   };
+
+  // Memoized callback to prevent unnecessary observer recreations
+  const handleIntersection = useCallback(([entry]) => {
+    const isCurrentlyIntersecting = entry.isIntersecting;
+    
+    setIsIntersecting(isCurrentlyIntersecting);
+    
+    // If triggerOnce is true, only trigger the first time
+    if (isCurrentlyIntersecting && defaultOptions.triggerOnce && !hasIntersected) {
+      setHasIntersected(true);
+      // Disconnect observer after first intersection to prevent memory leaks
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
+    } else if (!defaultOptions.triggerOnce) {
+      setHasIntersected(isCurrentlyIntersecting);
+    }
+  }, [defaultOptions.triggerOnce, hasIntersected]);
 
   useEffect(() => {
     const element = elementRef.current;
@@ -29,39 +49,38 @@ export const useIntersectionObserver = (options = {}) => {
       return;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const isCurrentlyIntersecting = entry.isIntersecting;
-        
-        setIsIntersecting(isCurrentlyIntersecting);
-        
-        // If triggerOnce is true, only trigger the first time
-        if (isCurrentlyIntersecting && defaultOptions.triggerOnce && !hasIntersected) {
-          setHasIntersected(true);
-        } else if (!defaultOptions.triggerOnce) {
-          setHasIntersected(isCurrentlyIntersecting);
-        }
-      },
-      {
+    // Don't create new observer if already triggered once
+    if (defaultOptions.triggerOnce && hasIntersected) {
+      return;
+    }
+
+    // Create observer only if not already created
+    if (!observerRef.current) {
+      observerRef.current = new IntersectionObserver(handleIntersection, {
         threshold: defaultOptions.threshold,
         rootMargin: defaultOptions.rootMargin
-      }
-    );
+      });
+    }
 
-    observer.observe(element);
+    observerRef.current.observe(element);
 
-    // Cleanup
+    // Cleanup function
     return () => {
-      if (element) {
-        observer.unobserve(element);
+      if (observerRef.current && element) {
+        observerRef.current.unobserve(element);
       }
     };
-  }, [
-    defaultOptions.threshold,
-    defaultOptions.rootMargin,
-    defaultOptions.triggerOnce,
-    hasIntersected
-  ]);
+  }, [handleIntersection, defaultOptions.threshold, defaultOptions.rootMargin, defaultOptions.triggerOnce, hasIntersected]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
+    };
+  }, []);
 
   // Return the ref and intersection state
   return [

@@ -10,6 +10,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 const TabuNavbar = lazy(() => import('../../components/tabu/TabuNavbar'));
 const TabuHero = lazy(() => import('../../components/tabu/TabuHero'));
 const TabuGallery = lazy(() => import('../../components/tabu/TabuGallery'));
+const TabuAbout = lazy(() => import('../../components/tabu/TabuAbout'));
 const ContactForm = lazy(() => import('../../components/tabu/ContactForm'));
 const TabuFooter = lazy(() => import('../../components/tabu/TabuFooter'));
 const BackToTopButton = lazy(() => import('../../components/tabu/BackToTopButton'));
@@ -224,9 +225,18 @@ const TabuMixologia = () => {
 
           {/* Gallery Section */}
           <ErrorBoundary fallback={<div>Error loading gallery</div>}>
-            <motion.section variants={sectionVariants}>
+            <motion.section id="gallery" variants={sectionVariants}>
               <Suspense fallback={<SectionLoader className="gallery-loader" />}>
                 <TabuGallery />
+              </Suspense>
+            </motion.section>
+          </ErrorBoundary>
+
+          {/* About Section */}
+          <ErrorBoundary fallback={<div>Error loading about section</div>}>
+            <motion.section variants={sectionVariants}>
+              <Suspense fallback={<SectionLoader className="about-loader" />}>
+                <TabuAbout />
               </Suspense>
             </motion.section>
           </ErrorBoundary>

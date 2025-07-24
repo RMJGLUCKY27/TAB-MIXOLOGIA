@@ -41,6 +41,9 @@ const TabuMixologia = () => {
         // Start performance monitoring
         const startTime = performance.now();
         
+        // Take initial memory snapshot
+        performance.memoryTracker.takeSnapshot('initial');
+        
         // Simulate minimum loading time for UX
         await new Promise(resolve => setTimeout(resolve, 1000));
         
@@ -54,8 +57,8 @@ const TabuMixologia = () => {
         const loadTime = performance.now() - startTime;
         console.log(`Tabú Mixología loaded in ${loadTime.toFixed(2)}ms`);
         
-        // Start memory monitoring
-        performance.startMemoryMonitoring();
+        // Take loaded memory snapshot
+        performance.memoryTracker.takeSnapshot('loaded');
         
       } catch (error) {
         console.error('Error initializing Tabú Mixología:', error);
@@ -67,7 +70,12 @@ const TabuMixologia = () => {
 
     // Cleanup on unmount
     return () => {
-      performance.stopMemoryMonitoring();
+      // Take cleanup memory snapshot and check for memory leaks
+      performance.memoryTracker.takeSnapshot('cleanup');
+      const memoryLeaks = performance.memoryTracker.detectMemoryLeaks();
+      if (memoryLeaks?.isGrowing) {
+        console.warn('Memory leak detected:', memoryLeaks.recommendation);
+      }
     };
   }, []);
 
